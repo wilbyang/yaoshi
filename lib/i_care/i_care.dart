@@ -17,8 +17,8 @@ class _ICarePageState extends State<ICarePage> {
       ),
       body: Column(
         children: <Widget>[
-          BoardWidget(),
-          BoardWidget(),
+          BoardWidget("健康指标", "健康数据随手记"),
+          BoardWidget("科学管理", "健康状况一目了然"),
         ],
       ),
     );
@@ -26,6 +26,12 @@ class _ICarePageState extends State<ICarePage> {
 }
 
 class BoardWidget extends StatelessWidget {
+
+  final String title;
+  final String text2;
+  const BoardWidget(this.title, this.text2, {
+    Key key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -38,8 +44,8 @@ class BoardWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("健康指标", style: TextStyle(fontSize: 18.0),),
-                Text("健康指标", style: TextStyle(fontSize: 12.0),),
+                Text("$title", style: TextStyle(fontSize: 18.0),),
+                Text("$text2", style: TextStyle(fontSize: 12.0, color: Colors.black38),),
               ],
             ),
           ),
