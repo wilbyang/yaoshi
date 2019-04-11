@@ -26,7 +26,7 @@ class _MyDoctorPageState extends State<MyDoctorPage> {
 
     const textBottomEdgeInsets = const EdgeInsets.only(bottom: 8);
     Widget titleSection = Container(
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.fromLTRB(32, 8, 32, 12),
       decoration: BoxDecoration(border: Border(
         bottom: BorderSide(color: Colors.black12)
       )),
