@@ -27,6 +27,9 @@ class _MyDoctorPageState extends State<MyDoctorPage> {
     const textBottomEdgeInsets = const EdgeInsets.only(bottom: 8);
     Widget titleSection = Container(
       padding: const EdgeInsets.all(32),
+      decoration: BoxDecoration(border: Border(
+        bottom: BorderSide(color: Colors.black12)
+      )),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,20 +47,22 @@ class _MyDoctorPageState extends State<MyDoctorPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: textBottomEdgeInsets,
-                  child: Text(
-                    '$name',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      padding: textBottomEdgeInsets,
+                      child: Text(
+                        '$name',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  padding: textBottomEdgeInsets,
-                  child: Text(
-                    '$title',
-                  ),
+                    Chip(
+                      label: Text('问诊')
+                    )
+                  ],
                 ),
                 Container(
                   padding: textBottomEdgeInsets,
@@ -71,16 +76,20 @@ class _MyDoctorPageState extends State<MyDoctorPage> {
                     color: Colors.grey[500],
                   ),
                 ),
+                Container(
+                  padding: EdgeInsets.only(top:8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      HotIndexWidget("热度指数", 3),
+                      Text("服务满意度 80%", style: TextStyle(fontSize: 10.0))
+                    ],
+                  ),
+                )
               ],
             ),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Icon(Icons.star, color: Colors.red[500]),
-              Text('41'),
-            ],
-          ),
+          )
+
         ],
       ),
     );
@@ -120,6 +129,25 @@ class _MyDoctorPageState extends State<MyDoctorPage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class HotIndexWidget extends StatelessWidget {
+  final String title;
+  final int index;
+  const HotIndexWidget(this.title, this.index, {
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final list = List.filled(index, Icon(Icons.star, color: Colors.red[500], size: 12.0));
+
+    return Row(
+      children: <Widget>[
+        Text("$title", style: TextStyle(fontSize: 10.0),)
+      ]..addAll(list),
     );
   }
 }
