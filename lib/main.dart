@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yaoshi/i_care/i_care.dart';
 import 'package:yaoshi/my_doctor/my_doctor.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyDoctorPage(title: '我的医生'),
+      home: ICarePage(title: 'Icare'),
     );
   }
 }
