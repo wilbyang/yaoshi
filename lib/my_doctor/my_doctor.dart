@@ -100,6 +100,7 @@ class _MyDoctorPageState extends State<MyDoctorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(widget.title),
       ),
       bottomNavigationBar: BottomNavigationBar(
