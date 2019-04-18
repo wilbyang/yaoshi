@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:yaoshi/common/models.dart';
 
 class ChatPage extends StatefulWidget {
+  final Doctor doctor;
+  const ChatPage(this.doctor, {
+    Key key,
+  }) : super(key: key);
   @override //new
   State createState() => ChatPageState();
 }
@@ -19,30 +24,32 @@ class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text("Friendlychat"),
+        title: Text("咨询${widget.doctor.name}"),
         elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Flexible(
-              child: ListView.builder(
-                padding: EdgeInsets.all(8.0),
-                reverse: true,
-                itemBuilder: (_, int index) => _messages[index],
-                itemCount: _messages.length,
+      body: SafeArea(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Flexible(
+                child: ListView.builder(
+                  padding: EdgeInsets.all(8.0),
+                  reverse: true,
+                  itemBuilder: (_, int index) => _messages[index],
+                  itemCount: _messages.length,
+                ),
               ),
-            ),
-            Divider(height: 1.0),
-            Container(
-              decoration: BoxDecoration(color: Theme.of(context).cardColor),
-              child: _buildTextComposer(),
-            ),
-          ],
+              Divider(height: 1.0),
+              Container(
+                decoration: BoxDecoration(color: Theme.of(context).cardColor),
+                child: _buildTextComposer(),
+              ),
+            ],
+          ),
+          decoration: Theme.of(context).platform == TargetPlatform.iOS
+              ? decoration
+              : null,
         ),
-        decoration: Theme.of(context).platform == TargetPlatform.iOS
-            ? decoration
-            : null,
       ),
     );
   }

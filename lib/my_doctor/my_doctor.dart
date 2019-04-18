@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:yaoshi/chat/chat.dart';
+import 'package:yaoshi/common/models.dart';
 
-class Doctor {
-  final String name;
-  final String title;
-  final String major;
-  final String resume;
-  final String org;
-  final String sector;
-  Doctor({@required this.name, @required this.org, this.major, this.title, this.sector, this.resume});
-  factory Doctor.fromFireStoreDoc(DocumentSnapshot doc) {
-    return Doctor(name: doc['name'], title: doc["title"], org: doc['org'], major: doc["major"], resume: doc["resume"], sector: doc["sector"]);
-  }
-}
+
 
 
 
@@ -33,67 +24,73 @@ class DoctorTileWidget extends StatelessWidget {
       decoration: BoxDecoration(border: Border(
         bottom: BorderSide(color: Colors.black12)
       )),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(right: 32, top: 8),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage('http://i.imgur.com/QSev0hg.jpg'),
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      padding: textBottomEdgeInsets,
-                      child: Text(
-                        '${doctor.name}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Chip(
-                      label: Text('问诊')
-                    )
-                  ],
-                ),
+      child: InkWell(
+        onTap: () {
+          Route route = MaterialPageRoute(builder: (context) => ChatPage(doctor));
+          Navigator.push(context, route);
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              children: <Widget>[
                 Container(
-                  padding: textBottomEdgeInsets,
-                  child: Text(
-                    '${doctor.org}',
+                  padding: const EdgeInsets.only(right: 32, top: 8),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage('http://i.imgur.com/QSev0hg.jpg'),
                   ),
                 ),
-                Text(
-                  '${doctor.sector}, ${doctor.title}',
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top:8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      HotIndexWidget("热度指数", 3),
-                      Text("服务满意度 80%", style: TextStyle(fontSize: 10.0))
-                    ],
-                  ),
-                )
               ],
             ),
-          )
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        padding: textBottomEdgeInsets,
+                        child: Text(
+                          '${doctor.name}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Chip(
+                        label: Text('问诊')
+                      )
+                    ],
+                  ),
+                  Container(
+                    padding: textBottomEdgeInsets,
+                    child: Text(
+                      '${doctor.org}',
+                    ),
+                  ),
+                  Text(
+                    '${doctor.sector}, ${doctor.title}',
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top:8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        HotIndexWidget("热度指数", 3),
+                        Text("服务满意度 80%", style: TextStyle(fontSize: 10.0))
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
 
-        ],
+          ],
+        ),
       ),
     );
   }

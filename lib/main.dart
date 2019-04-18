@@ -7,7 +7,7 @@ import 'package:yaoshi/store/store.dart';
 
 void main() => runApp(MyApp());
 final ThemeData kIOSTheme = new ThemeData(
-  primarySwatch: Colors.orange,
+  primarySwatch: Colors.blue,
   primaryColor: Colors.grey[100],
   primaryColorBrightness: Brightness.light,
 );
@@ -22,9 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: defaultTargetPlatform == TargetPlatform.iOS         //new
-          ? kIOSTheme                                              //new
-          : kDefaultTheme,
+      theme: defaultTargetPlatform == TargetPlatform.iOS ? kIOSTheme : kDefaultTheme,
       home: HomePage(title: '我的医生'),
     );
   }
