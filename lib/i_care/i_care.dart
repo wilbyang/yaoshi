@@ -6,7 +6,7 @@ class ICarePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: <Widget>[
         BoardWidget("健康指标", "健康数据随手记"),
         BoardWidget("科学管理", "健康状况一目了然"),
