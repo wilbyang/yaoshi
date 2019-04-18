@@ -39,15 +39,11 @@ class Bloc {
   Function(int) get nextBottomNavIndex => _bottomNavIndex.sink.add;
 
 
-  BehaviorSubject<MusicControlOperation> _operations =
-  BehaviorSubject.seeded(MusicControlOperation.stop);
-  Stream<MusicControlOperation> get operations => _operations.stream;
-  Function(MusicControlOperation) get act => _operations.sink.add;
-
-
 //  Function(List<Music>) get changeMusics    => _musics.sink.add;
   void dispose() {
     _bottomNavTitle.close();
+    _flash.close();
+    _bottomNavIndex.close();
   }
 }
 
