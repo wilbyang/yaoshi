@@ -1,60 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-class MyDoctorPage extends StatefulWidget {
-  MyDoctorPage({Key key, this.title}) : super(key: key);
 
-  final String title;
-
-  @override
-  _MyDoctorPageState createState() => _MyDoctorPageState();
-}
-
-class _MyDoctorPageState extends State<MyDoctorPage> {
-  int _selectedIndex = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _selectedIndex++;
-    });
-  }
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(widget.title),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('我的医生')),
-            BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('iCare')),
-            BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('严选')),
-            BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('我')),
-          ],
-          currentIndex: _selectedIndex,
-          unselectedItemColor: Colors.black38,
-          selectedItemColor: Colors.blueAccent,
-          onTap: _onItemTapped
-      ),
-      body: Center(
-        child: MyDoctorList(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
 class Doctor {
   final String name;
   final String title;
@@ -67,6 +13,10 @@ class Doctor {
     return Doctor(name: doc['name'], title: doc["title"], org: doc['org'], major: doc["major"], resume: doc["resume"], sector: doc["sector"]);
   }
 }
+
+
+
+
 class DoctorTileWidget extends StatelessWidget {
 
   final Doctor doctor;
@@ -159,7 +109,6 @@ class HotIndexWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final list = List.filled(index, Icon(Icons.star, color: Colors.red[500], size: 12.0));
-
     return Row(
       children: <Widget>[
         Text("$title", style: TextStyle(fontSize: 10.0),)
@@ -179,7 +128,7 @@ class MyDoctorList extends StatelessWidget {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting: return new Text('Loading...');
           default:
-            return new ListView(
+            return ListView(
               children: snapshot.data.documents.map((DocumentSnapshot document) {
                 return DoctorTileWidget(Doctor.fromFireStoreDoc(document));
               }).toList(),

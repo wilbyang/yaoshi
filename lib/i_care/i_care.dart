@@ -1,40 +1,30 @@
 import 'package:flutter/material.dart';
-class ICarePage extends StatefulWidget {
+
+class ICarePage extends StatelessWidget {
+  final String title;
   ICarePage({Key key, this.title}) : super(key: key);
 
-  final String title;
-
-  @override
-  _ICarePageState createState() => _ICarePageState();
-}
-
-class _ICarePageState extends State<ICarePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[
-          BoardWidget("健康指标", "健康数据随手记"),
-          BoardWidget("科学管理", "健康状况一目了然"),
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        BoardWidget("健康指标", "健康数据随手记"),
+        BoardWidget("科学管理", "健康状况一目了然"),
+      ],
     );
   }
 }
 
 class BoardWidget extends StatelessWidget {
-
   final String title;
   final String text2;
-  const BoardWidget(this.title, this.text2, {
+  const BoardWidget(
+    this.title,
+    this.text2, {
     Key key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: EdgeInsets.all(12.0),
       child: Column(
@@ -44,8 +34,14 @@ class BoardWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("$title", style: TextStyle(fontSize: 18.0),),
-                Text("$text2", style: TextStyle(fontSize: 12.0, color: Colors.black38),),
+                Text(
+                  "$title",
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                Text(
+                  "$text2",
+                  style: TextStyle(fontSize: 12.0, color: Colors.black38),
+                ),
               ],
             ),
           ),
@@ -66,11 +62,12 @@ class BoardWidget extends StatelessWidget {
       ),
     );
   }
-
 }
+
 class MetroWidget extends StatelessWidget {
   final String title;
-  const MetroWidget(this.title, {
+  const MetroWidget(
+    this.title, {
     Key key,
   }) : super(key: key);
 
@@ -83,18 +80,16 @@ class MetroWidget extends StatelessWidget {
         style: TextStyle(color: Colors.white, fontSize: 18.0),
       ),
       decoration: BoxDecoration(
-
-        gradient: LinearGradient(
-          stops: [0.1, 0.5, 0.7, 0.9],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.lightBlue[800],
-            Colors.lightBlue[700],
-            Colors.lightBlue[400],
-            Colors.lightBlue[200],
-          ])
-      ),
+          gradient: LinearGradient(
+              stops: [0.1, 0.5, 0.7, 0.9],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.lightBlue[800],
+                Colors.lightBlue[700],
+                Colors.lightBlue[400],
+                Colors.lightBlue[200],
+              ])),
     );
   }
 }
