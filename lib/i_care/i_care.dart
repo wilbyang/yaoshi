@@ -77,19 +77,24 @@ class MetroWidget extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       child: Text(
         "$title",
-        style: TextStyle(color: Colors.white, fontSize: 18.0),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18.0,
+        ),
       ),
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              stops: [0.1, 0.5, 0.7, 0.9],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.lightBlue[800],
-                Colors.lightBlue[700],
-                Colors.lightBlue[400],
-                Colors.lightBlue[200],
-              ])),
+        gradient: LinearGradient(
+          stops: [0.1, 0.5, 0.7, 0.9],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.lightBlue[700],
+            Colors.lightBlue[600],
+            Colors.lightBlue[400],
+            Colors.lightBlue[200],
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,11 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:yaoshi/common/models.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class ChatPage extends StatefulWidget {
   final Doctor doctor;
@@ -14,6 +19,7 @@ class ChatPage extends StatefulWidget {
 class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _messages = <ChatMessage>[];
+  File _image;
   bool _isComposing = false;
   @override
   Widget build(BuildContext context) {
@@ -60,24 +66,49 @@ class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
       message.animationController.dispose(); //new
     super.dispose();
   }
+  Future<void> getImage() async {
+    File imageFile = await ImagePicker.pickImage();
+    int random = new Random().nextInt(100000);
+    StorageReference ref =
+    FirebaseStorage.instance.ref().child("image_$random.jpg");
+    StorageUploadTask uploadTask = ref.putFile(imageFile);
+    uploadTask.onComplete.then((StorageTaskSnapshot snapshot) {
+      //snapshot.ref.getDownloadURL() 下载地址
+    });
+//    Uri downloadUrl = (await uploadTask.future).downloadUrl;
 
+
+  }
+  void _sendMsg() {
+    if (_isComposing) _handleSubmitted(_textController.text);
+  }
   Widget _buildTextComposer() {
-    Widget widget;
+    Widget sendBtn;
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-      widget = CupertinoButton(
+      sendBtn = CupertinoButton(
         child: Text("Send"), //new
-        onPressed: () {
-          if (_isComposing) _handleSubmitted(_textController.text);
-        },
+        onPressed: _sendMsg,
       );
     } else {
-      widget = IconButton(
+      sendBtn = IconButton(
         icon: Icon(Icons.send),
-        onPressed: () {
-          if (_isComposing) _handleSubmitted(_textController.text);
-        },
+        onPressed: _sendMsg
       );
     }
+
+    Widget pickImageBtn;
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      pickImageBtn = CupertinoButton(
+        child: Text("图片"), //new
+        onPressed: _sendMsg,
+      );
+    } else {
+      pickImageBtn = IconButton(
+          icon: Icon(Icons.send),
+          onPressed: _sendMsg
+      );
+    }
+
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.0),
@@ -97,7 +128,12 @@ class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 4.0),
-            child: widget,
+            child: Row(
+              children: <Widget>[
+                sendBtn,
+                pickImageBtn,
+              ],
+            ),
           ),
         ],
       ),

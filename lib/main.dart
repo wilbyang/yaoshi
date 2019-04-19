@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
                 widget = ICareWidget();
                 break;
               case 2:
-                widget = StoreWidget();
+                widget = MyTabbedPage();
                 break;
               case 3:
                 widget = ProfileWidget();

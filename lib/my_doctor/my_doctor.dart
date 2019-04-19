@@ -3,11 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yaoshi/chat/chat.dart';
 import 'package:yaoshi/common/models.dart';
 
-
-
-
-
-
 class DoctorTileWidget extends StatelessWidget {
 
   final Doctor doctor;

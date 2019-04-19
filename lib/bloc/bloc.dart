@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -10,7 +11,7 @@ const Map<int, String> bottomNavTitles = {0: "我的医生", 1: "iCare", 2: "严
 
 class Bloc {
   Bloc() {
-    bottomNavIndex.distinct().listen((index) async {
+    bottomNavIndex.distinct().listen((index) {
       nextBottomNavTitle(bottomNavTitles[index]);
     });
 
