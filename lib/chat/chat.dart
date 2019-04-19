@@ -9,7 +9,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class ChatPage extends StatefulWidget {
   final Doctor doctor;
-  const ChatPage(this.doctor, {
+  const ChatPage(
+    this.doctor, {
     Key key,
   }) : super(key: key);
   @override //new
@@ -66,22 +67,27 @@ class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
       message.animationController.dispose(); //new
     super.dispose();
   }
-  Future<void> getImage() async {
-    File imageFile = await ImagePicker.pickImage();
-    int random = new Random().nextInt(100000);
-    StorageReference ref =
-    FirebaseStorage.instance.ref().child("image_$random.jpg");
-    StorageUploadTask uploadTask = ref.putFile(imageFile);
-    uploadTask.onComplete.then((StorageTaskSnapshot snapshot) {
-      //snapshot.ref.getDownloadURL() 下载地址
-    });
+
+  Future<void> _sendImage() async {
+    File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    if (imageFile != null) {
+      int random = new Random().nextInt(100000);
+      StorageReference ref =
+      FirebaseStorage.instance.ref().child("image_$random.jpg");
+      StorageUploadTask uploadTask = ref.putFile(imageFile);
+      uploadTask.onComplete.then((StorageTaskSnapshot snapshot) async {
+        final path = await snapshot.ref.getDownloadURL();
+        print(path as String);
+        //snapshot.ref.getDownloadURL() 下载地址
+      });
+    }
 //    Uri downloadUrl = (await uploadTask.future).downloadUrl;
-
-
   }
+
   void _sendMsg() {
     if (_isComposing) _handleSubmitted(_textController.text);
   }
+
   Widget _buildTextComposer() {
     Widget sendBtn;
     if (Theme.of(context).platform == TargetPlatform.iOS) {
@@ -90,25 +96,21 @@ class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
         onPressed: _sendMsg,
       );
     } else {
-      sendBtn = IconButton(
-        icon: Icon(Icons.send),
-        onPressed: _sendMsg
-      );
+      sendBtn = IconButton(icon: Icon(Icons.send), onPressed: _sendMsg);
     }
 
     Widget pickImageBtn;
     if (Theme.of(context).platform == TargetPlatform.iOS) {
       pickImageBtn = CupertinoButton(
         child: Text("图片"), //new
-        onPressed: _sendMsg,
+        onPressed: _sendImage,
       );
     } else {
       pickImageBtn = IconButton(
-          icon: Icon(Icons.send),
-          onPressed: _sendMsg
+        icon: Icon(Icons.send),
+        onPressed: _sendMsg,
       );
     }
-
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.0),
