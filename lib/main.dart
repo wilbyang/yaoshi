@@ -6,6 +6,9 @@ import 'package:yaoshi/my_doctor/my_doctor.dart';
 import 'package:yaoshi/profile/profile.dart';
 import 'package:yaoshi/store/store.dart';
 
+import 'find_venues/find_venues.dart';
+import 'near_venues/near_venues.dart';
+
 void main() => runApp(MyApp());
 final ThemeData kIOSTheme = new ThemeData(
   primarySwatch: Colors.blue,
@@ -57,10 +60,10 @@ class HomePage extends StatelessWidget {
           return BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('我的医生')),
+              BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('餐厅')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.business), title: Text('iCare')),
-              BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('严选')),
+                  icon: Icon(Icons.business), title: Text('搜索')),
+              BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('订单')),
               BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('我')),
             ],
             currentIndex: snapshot.data??0,
@@ -77,13 +80,13 @@ class HomePage extends StatelessWidget {
           if (snapshot.hasData) {
             switch (snapshot.data) {
               case 0:
-                widget = MyDoctorList();
+                widget = NearVenueList();
                 break;
               case 1:
-                widget = ICareWidget();
+                widget = VenueCategoryList();
                 break;
               case 2:
-                widget = MyTabbedPage();
+                widget = MyDoctorList();
                 break;
               case 3:
                 widget = ProfileWidget();

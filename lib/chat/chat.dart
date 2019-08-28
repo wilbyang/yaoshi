@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:yaoshi/common/models.dart';
 import 'package:image_picker/image_picker.dart';
@@ -83,6 +84,7 @@ class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     }
 //    Uri downloadUrl = (await uploadTask.future).downloadUrl;
   }
+
 
   void _sendMsg() {
     if (_isComposing) _handleSubmitted(_textController.text);

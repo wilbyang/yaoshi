@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 enum MusicControlOperation { stop, play, pause, next, previous }
 typedef void OnError(Exception exception);
 
-const Map<int, String> bottomNavTitles = {0: "我的医生", 1: "iCare", 2: "严选", 3:"我的资料"};
+const Map<int, String> bottomNavTitles = {0: "餐厅", 1: "搜索", 2: "搜索", 3:"我的资料"};
 
 class Bloc {
   Bloc() {
